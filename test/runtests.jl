@@ -1,7 +1,5 @@
-using BhAbs_Solver
-using Test
+using SafeTestsets
 
-@testset "BhAbs_Solver.jl" begin
-    # Write your tests here.
-    @test BhAbs_Solver.my_f(1,1) == 2
+@safetestset "template test set" begin
+    include("template_test_file.jl")
 end
