@@ -16,5 +16,11 @@ using ProgressMeter
 include("./structs/Operators.jl")
 include("./structs/Parameters.jl")
 
+#Operators 
+include("./operators/differential_operator.jl")
+include("./operators/position_operator.jl")
+include("./operators/absorption_operator.jl")
+include("./operators/BC_operator.jl")
+include("./operators/potential_operator.jl")
 
 end
