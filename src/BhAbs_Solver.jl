@@ -29,4 +29,8 @@ include("./sim_utils/create_structures.jl")
 include("./sim_utils/setup_folders.jl")
 include("./sim_utils/setup_routine.jl")
 
+#Solvers
+include("./solvers/KG_Solver.jl")
+
+
 end
