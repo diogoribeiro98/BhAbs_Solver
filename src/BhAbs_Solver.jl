@@ -12,7 +12,9 @@ using DelimitedFiles
 
 using ProgressMeter
 
-
+#Import structures
+include("./structs/Operators.jl")
+include("./structs/Parameters.jl")
 
 
 end
