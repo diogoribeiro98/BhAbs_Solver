@@ -23,4 +23,10 @@ include("./operators/absorption_operator.jl")
 include("./operators/BC_operator.jl")
 include("./operators/potential_operator.jl")
 
+#Simulation helpers
+include("./sim_utils/initial_conditions.jl")
+include("./sim_utils/create_structures.jl")
+include("./sim_utils/setup_folders.jl")
+include("./sim_utils/setup_routine.jl")
+
 end
