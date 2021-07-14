@@ -26,3 +26,5 @@ after_success:
       Pkg.add("Coverage")
       using Coverage
       Codecov.submit(process_folder())'
+
+codecov: true
