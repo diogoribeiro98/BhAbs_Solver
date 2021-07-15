@@ -32,5 +32,11 @@ include("./sim_utils/setup_routine.jl")
 #Solvers
 include("./solvers/KG_Solver.jl")
 
+#Template_runs
+include("./template_runs/single_bh_runs.jl")
+
+
+
+export my_f, run_single_BH_simulation
 
 end
