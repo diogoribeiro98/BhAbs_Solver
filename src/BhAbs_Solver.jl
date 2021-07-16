@@ -5,6 +5,7 @@ using LinearAlgebra
 using LinearAlgebra.BLAS
 using DifferentialEquations
 using SparseArrays
+using Dates
 
 using Parameters
 using HDF5
@@ -28,6 +29,7 @@ include("./sim_utils/initial_conditions.jl")
 include("./sim_utils/create_structures.jl")
 include("./sim_utils/setup_folders.jl")
 include("./sim_utils/setup_routine.jl")
+include("./sim_utils/print_param_info.jl")
 
 #Solvers
 include("./solvers/KG_Solver.jl")
@@ -37,6 +39,6 @@ include("./template_runs/single_bh_runs.jl")
 
 
 
-export my_f, run_single_BH_simulation
+export run_single_BH_simulation
 
 end
