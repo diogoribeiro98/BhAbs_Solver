@@ -40,6 +40,6 @@ include("./template_runs/single_bh_runs.jl")
 include("./template_runs/binary_bh_runs.jl")
 
 
-export run_single_BH_simulation
+export run_single_BH_simulation , run_binary_BH_simulation
 
 end
