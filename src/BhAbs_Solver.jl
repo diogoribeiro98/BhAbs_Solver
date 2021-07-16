@@ -1,6 +1,7 @@
 module BhAbs_Solver
 
 #Julia libs
+using Base: Float64
 using LinearAlgebra
 using LinearAlgebra.BLAS
 using DifferentialEquations
@@ -36,7 +37,7 @@ include("./solvers/KG_Solver.jl")
 
 #Template_runs
 include("./template_runs/single_bh_runs.jl")
-
+include("./template_runs/binary_bh_runs.jl")
 
 
 export run_single_BH_simulation
