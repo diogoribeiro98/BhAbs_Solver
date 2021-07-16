@@ -232,5 +232,6 @@ function solve_wave_equation_2D(p::Param)
     println("Thank you for choosing KG Solver!")
     println("___________________________________________________________")  
 
+    return true
 end
 
