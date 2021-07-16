@@ -113,6 +113,8 @@ function solve_wave_equation_2D(p::Param)
         HDF5.attributes(fid)["Boundaries"]      = "periodic"
     else
         HDF5.attributes(fid)["Boundaries"]      = "radial"
+        HDF5.attributes(fid)["R_boundary"]      = round(0.95*min(xmax,ymax))
+
     end
 
     if(p.dissipation == :true )
