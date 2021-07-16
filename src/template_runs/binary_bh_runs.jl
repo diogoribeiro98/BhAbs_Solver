@@ -1,11 +1,11 @@
 function run_binary_BH_simulation(
      
-    ttmax::Float64      ,
-    Rcavity::Float64    , 
-    Nnodes:: Int64      ,
-    Mbh::Float64        ,
-    Rorbit::Float64     ,
-    alpha::Float64      , )
+        ttmax::Float64      ,
+        Rcavity::Float64    , 
+        Nnodes:: Int64      ,
+        Mbh::Float64        ,
+        Rorbit::Float64     ,
+        alpha::Float64      , )
 
     #Define variables  
     Ωorbit = sqrt(2*Mbh/Rorbit^3)
