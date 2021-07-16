@@ -85,7 +85,7 @@ function set_up_operator(p::Param)
     BC_Mat  =  sparse(I, Nx*Ny , Ny*Ny)    #Periodic BC (Identity)
 
     if (p.Boundaries == :radial )
-        BC_Mat  =   radial_zero_BC_matrix(p , x , y , 0.9*min(xmax,ymax) )
+        BC_Mat  =   radial_zero_BC_matrix(p , x , y , round(0.95*min(xmax,ymax)) )
     elseif (p.Boundaries == :square )
         BC_Mat  =   square_zero_BC_matrix(p)
     end
