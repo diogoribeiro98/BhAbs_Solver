@@ -104,6 +104,6 @@ function set_up_operator(p::Param)
     alpha!(absorption_matrix , p , Operators , 0.0)
 
     #Return final structure of operators
-    return Opps(x , y , aux_vector , Dx , Dxx , Dy , Dyy , RHS_Opp , BC_Mat , Abs_Mat , Lz)
+    return Opps(x , y , aux_vector , Dx , Dxx , Dy , Dyy , RHS_Opp , BC_Mat , absorption_matrix , Lz)
     
 end
