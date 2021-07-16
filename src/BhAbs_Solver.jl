@@ -35,6 +35,9 @@ include("./sim_utils/print_param_info.jl")
 #Solvers
 include("./solvers/KG_Solver.jl")
 
+#Visualization aids
+include("./visualization/sim_visualizer.jl")
+
 #Template_runs
 include("./template_runs/single_bh_runs.jl")
 include("./template_runs/binary_bh_runs.jl")
