@@ -35,8 +35,17 @@ include("./sim_utils/print_param_info.jl")
 #Solvers
 include("./solvers/KG_Solver.jl")
 
+#Data analysis aids
+include("./data_read_utils/get_field_energy.jl")
+include("./data_read_utils/get_field_point.jl")
+include("./data_read_utils/get_field_slice.jl")
+include("./data_read_utils/get_fields.jl")
+include("./data_read_utils/get_t_max.jl")
+
 #Visualization aids
 include("./visualization/sim_visualizer.jl")
+
+
 
 #Template_runs
 include("./template_runs/single_bh_runs.jl")

@@ -75,7 +75,7 @@ function slices_observer(fname::String)
     end
 
     #Get energy
-    a , b = get_energy(fname , 10 , tmax)
+    a , b = get_field_energy(fname , 10 , tmax)
    
     #Plot field
     heatmap!(ax_heat , x , y ,ψ ,colorrange=(-3,3) , colormap = :vik  )
