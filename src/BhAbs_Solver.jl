@@ -1,18 +1,18 @@
 module BhAbs_Solver
 
 #Julia libs
-using Base: Float64
+using Base: Float64, Slice
 using LinearAlgebra
 using LinearAlgebra.BLAS
 using DifferentialEquations
 using SparseArrays
 using Dates
-
 using Parameters
 using HDF5
 using DelimitedFiles
-
 using ProgressMeter
+using GLMakie
+using Colors
 
 #Import structures
 include("./structs/Operators.jl")
@@ -43,6 +43,6 @@ include("./template_runs/single_bh_runs.jl")
 include("./template_runs/binary_bh_runs.jl")
 
 
-export run_single_BH_simulation , run_binary_BH_simulation
+export run_single_BH_simulation , run_binary_BH_simulation , slices_observer
 
 end
