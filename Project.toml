@@ -19,6 +19,7 @@ DifferentialEquations = "6"
 HDF5 = "0.15"
 Parameters = "0.12"
 ProgressMeter = "1"
+SafeTestsets = "0.0.1"
 julia = "1"
 
 [extras]
