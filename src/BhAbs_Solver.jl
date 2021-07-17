@@ -12,7 +12,7 @@ using HDF5
 using DelimitedFiles
 using ProgressMeter
 #using GLMakie
-using Colors
+#using Colors
 
 #Import structures
 include("./structs/Operators.jl")
