@@ -11,7 +11,7 @@ using Parameters
 using HDF5
 using DelimitedFiles
 using ProgressMeter
-using GLMakie
+#using GLMakie
 using Colors
 
 #Import structures
@@ -43,7 +43,7 @@ include("./data_read_utils/get_fields.jl")
 include("./data_read_utils/get_t_max.jl")
 
 #Visualization aids
-include("./visualization/sim_visualizer.jl")
+#include("./visualization/sim_visualizer.jl")
 
 
 
