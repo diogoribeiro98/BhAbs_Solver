@@ -52,6 +52,7 @@ include("./template_runs/single_bh_runs.jl")
 include("./template_runs/binary_bh_runs.jl")
 
 
-export run_single_BH_simulation , run_binary_BH_simulation , slices_observer
+export run_single_BH_simulation , run_binary_BH_simulation
+export get_t_max , get_field_energy , get_field_point, get_field_slice, get_fields
 
 end
