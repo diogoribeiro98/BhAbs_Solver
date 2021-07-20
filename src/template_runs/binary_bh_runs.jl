@@ -20,7 +20,7 @@ function run_binary_BH_simulation(;
 
     #filename
     folder_name = string("/", Dates.today() , "/") 
-    filename = string("binary_bh_M_", Mbh, "_alpha_", alpha , "_Rotbit_", Rorbit , "_Rcavity_",Rcavity , "_N_" , Nnodes ,"_tmax_" , ttmax)
+    filename = string("binary_bh_M_", Mbh, "_alpha_", alpha , "_Rorbit_", Rorbit , "_Rcavity_",Rcavity , "_N_" , Nnodes ,"_tmax_" , ttmax)
 
     #Setup masses
     p0 = Param(
