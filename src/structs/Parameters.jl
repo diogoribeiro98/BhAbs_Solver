@@ -1,10 +1,14 @@
 @with_kw struct Param
 
-    #Temporal variables
-    tmax            :: Float64
-    out_every_t     :: Float64      = 0.1
-    deltat          :: Float64
+    #Temporal variables for simulation
+    t_sim_init          :: Float64
+    t_sim_final         :: Float64    
+    out_every_t         :: Float64  
+    deltat              :: Float64
 
+    #Max possible sim
+    max_runtime         ::String    = "00:30:00"
+    
     #Spacial variables
     xmin            :: Float64      = -30.0
     xmax            :: Float64      =  30.0

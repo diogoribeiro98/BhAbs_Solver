@@ -5,15 +5,6 @@ function square_grid_KG!(df,f,param,t)
     Opps        = param[1]
     vars        = param[2]
 
-    #Get numerical variables
-    Nx  = vars.xnodes
-    Ny  = vars.ynodes
-
-    μ   = vars.μ
-
-    #Get operators
-    x   = Opps.xcoord
-    y   = Opps.ycoord
     av  = Opps.aux_vex
     
     RHS     = Opps.DiffO_1
@@ -134,7 +125,7 @@ function solve_wave_equation_2D(p::Param)
     println("OK")
 
     #Time variables
-    tspan       = ( 0.0 , p.tmax )
+    tspan       = ( p.t_sim_init , p.t_sim_final )
     iter        = 0
     iter_save   = 0
     every       = floor(Int , p.out_every_t/p.deltat + 1.0)
@@ -183,8 +174,12 @@ function solve_wave_equation_2D(p::Param)
 
     #Progress bar and time evolution
     println("Starting up simulation...")
-    prog1 = Progress( Int(floor(p.tmax))*100 )
-
+    prog1 = Progress( Int(floor(p.t_sim_final-p.t_sim_init))*100 )
+    
+    #Check time evolution
+    init_time = time()
+    max_runtime = time_string_to_seconds(p.max_runtime)
+    
     for (u,t) in tuples(integrator)
     
         #Increase iteration counter
@@ -219,6 +214,12 @@ function solve_wave_equation_2D(p::Param)
 
         end
   
+        #Check if time has exceeded
+        if( time_since(init_time) > max_runtime )
+            break
+        end
+
+
     end
 
     #Add general information to file
