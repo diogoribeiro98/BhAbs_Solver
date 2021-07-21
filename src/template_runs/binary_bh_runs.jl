@@ -1,20 +1,29 @@
 function run_binary_BH_simulation(;
      
-        ttmax::Float64      =   NaN     ,
-        Rcavity::Float64    =   40.     , 
-        Nnodes:: Int64      =   128     ,
-        Mbh::Float64        =   1.0     ,
-        Rorbit::Float64     =   6.0     ,
-        alpha::Float64      =   10.0    ,
-        dt::Float64         =   0.05    ,
-        out_every::Float64  =   1.0     ,
-        Gaussian_pulse:: Array{Float64, 1} = [ 3.5 , 3.7 , 20.  , 0.1 , 2 ])
+        #Time variables
+        tspan::Array{Float64 , 1}   =   [0. , 0.]   ,
+        dt::Float64                 =   0.05        ,
+        out_every::Float64          =   1.0         ,
+        max_run_time::String        =   "24:00:00"  ,
 
+        #Spatial variables
+        Nnodes:: Int64              =   128     ,
+        Rcavity::Float64            =   40.     ,
 
-    if(ttmax == NaN)
-       println("ERROR: ttmax argument must be defined!")
+        #Black hole parameters
+        Mbh::Float64                =   1.0     ,
+        Rorbit::Float64             =   6.0     ,
+        alpha::Float64              =   10.0    ,
+        
+        #Initial configuration
+        Gaussian_pulse:: Array{Float64, 1} = [ 3.5 , 3.7 , 20.  , 0.1 , 2 ],
+        )
+
+    if(tspan[1] - tspan[2] < 0)
+       println("ERROR: t_final must be larger than t_initial")
         return
     end
+
     #Define variables  
     Ωorbit = sqrt(2*Mbh/Rorbit^3)
 
@@ -26,7 +35,7 @@ function run_binary_BH_simulation(;
     p0 = Param(
 
     #Temporal variables
-    tmax           = ttmax          , 
+    t_sim_init           = ttmax          , 
     out_every_t    = out_every      ,  
     deltat         = dt             , 
 
