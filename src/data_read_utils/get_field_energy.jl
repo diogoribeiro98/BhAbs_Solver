@@ -28,7 +28,7 @@ function get_field_energy( fname::String, every::Int , tlimit::Float64)
     
 
     #Get max time iteration 
-    max_sim_iter , tmax = get_t_max(fname)    
+    _ , tmax , max_sim_iter  = get_time_variables(fname)    
     max_plot_iter = max_sim_iter
 
     if(tlimit <=  tmax)
@@ -36,7 +36,6 @@ function get_field_energy( fname::String, every::Int , tlimit::Float64)
     else
         println("ATTENTION: max time input is larger than simulation time, using tmax")
     end
-    #Mas user iteration
     
     #Potential Matrix
    # Vpot = potential_matrix(p)
@@ -52,7 +51,7 @@ function get_field_energy( fname::String, every::Int , tlimit::Float64)
     E = 0
 
     #Loop to get energy
-    for i in 1:every:max_plot_iter
+    for i in 0:every:max_plot_iter
         
         #Time and fields
         t, _ , _ , ψ , dψ = get_fields(fname,i)
