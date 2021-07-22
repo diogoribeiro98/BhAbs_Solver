@@ -1,7 +1,9 @@
 function print_param_info(p::Param)
 
     #Grid information
-    tmax        = p.tmax
+    ti          = p.t_sim_init
+    tf          = p.t_sim_final
+
     t_save      = p.out_every_t
     deltat      = p.deltat
     
@@ -33,7 +35,7 @@ function print_param_info(p::Param)
     println("dy = "  , dy)
     println("---------------------------------------------")
     println("Time Information:")
-    println("t  = [" , 0.0 , "," , tmax ,"]" )
+    println("t  = [" , ti , "," , tf ,"]" )
     println("dt = "  , deltat)
     println("---------------------------------------------")
     println("Initial Conditions:")

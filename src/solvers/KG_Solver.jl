@@ -216,15 +216,21 @@ function solve_wave_equation_2D(p::Param)
   
         #Check if time has exceeded
         if( time_since(init_time) > max_runtime )
+            println("\nMaximum allowed runtime reached , Ending Simulation!")
             break
         end
 
 
     end
 
+    #Print time taken
+    sim_time =  time_since(init_time) 
+    println("Time taken:" , time_seconds_to_string(sim_time) )
+    
     #Add general information to file
-    HDF5.attributes(fid)["max_iter"] = iter_save
-    HDF5.attributes(fid)["max_time"] = integrator.t
+    HDF5.attributes(fid)["max_iter"]    = iter_save
+    HDF5.attributes(fid)["t_min"]       = p.t_sim_init
+    HDF5.attributes(fid)["t_max"]       = integrator.t
     
     close(fid)
     println("Saving Files...")
