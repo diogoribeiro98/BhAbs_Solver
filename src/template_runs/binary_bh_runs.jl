@@ -1,5 +1,5 @@
 function run_binary_BH_simulation(;
-     
+
         #Time variables
         tspan::Array{Float64 , 1}   =   [0. , 0.]   ,
         dt::Float64                 =   0.05        ,
@@ -14,7 +14,7 @@ function run_binary_BH_simulation(;
         Mbh::Float64                =   1.0     ,
         Rorbit::Float64             =   6.0     ,
         alpha::Float64              =   10.0    ,
-        
+
         #Initial configuration
         Gaussian_pulse:: Array{Float64, 1} = [ 3.5 , 3.7 , 20.  , 0.1 , 2 ],
         )
@@ -24,11 +24,11 @@ function run_binary_BH_simulation(;
         return
     end
 
-    #Define variables  
+    #Define variables
     Ωorbit = sqrt(2*Mbh/Rorbit^3)
 
     #filename
-    folder_name = string("/", Dates.today() , "/") 
+    folder_name = string("/", Dates.today() , "/")
     filename = string("binary_bh_M_", Mbh, "_alpha_", alpha , "_Rorbit_", Rorbit , "_Rcavity_",Rcavity , "_N_" , Nnodes ,"_ti_" , tspan[1] , "_tf_" , tspan[2] )
 
     #Setup masses
@@ -36,33 +36,33 @@ function run_binary_BH_simulation(;
 
     #Temporal variables
     t_sim_init      = tspan[1]          ,
-    t_sim_final     = tspan[2]          , 
-    out_every_t     = out_every      ,  
-    deltat          = dt             , 
+    t_sim_final     = tspan[2]          ,
+    out_every_t     = out_every      ,
+    deltat          = dt             ,
 
     max_runtime     = max_run_time  ,
     #Spacial variables
-    xmin           =    -Rcavity    ,  
-    xmax           =    Rcavity     , 
-    xnodes         =    Nnodes      ,    
+    xmin           =    -Rcavity    ,
+    xmax           =    Rcavity     ,
+    xnodes         =    Nnodes      ,
 
     #Spacial variables
-    ymin           =    -Rcavity    ,  
-    ymax           =    Rcavity     , 
-    ynodes         =    Nnodes      , 
+    ymin           =    -Rcavity    ,
+    ymax           =    Rcavity     ,
+    ynodes         =    Nnodes      ,
 
     #Initial Conditions
-    A0              =   Gaussian_pulse[1] , #3.5         , 
-    σ               =   Gaussian_pulse[2] , #4.5         , 
+    A0              =   Gaussian_pulse[1] , #3.5         ,
+    σ               =   Gaussian_pulse[2] , #4.5         ,
     r0              =   Gaussian_pulse[3] , #40.0        ,
-    ω               =   Gaussian_pulse[4] , #0.5         , 
-    m               =   Gaussian_pulse[5] , #2           , 
+    ω               =   Gaussian_pulse[4] , #0.5         ,
+    m               =   Gaussian_pulse[5] , #2           ,
 
     #Klein Gordon Mass
     μ               =   0.0         ,
 
     #Dissipation terms
-    dissipation     =  :true        ,   
+    dissipation     =  :true        ,
 
     R_orbit         = Rorbit        ,
     R1              = 2*Mbh         ,
@@ -70,13 +70,13 @@ function run_binary_BH_simulation(;
 
     Ω               = Ωorbit        ,
     alpha1          = alpha         ,
-    alpha2          = alpha         ,    
+    alpha2          = alpha         ,
 
     #Periodic BC?
-    Boundaries      = :radial       , # :square :periodic 
+    Boundaries      = :radial       , # :square :periodic
 
     #Data variables
-    folder          = folder_name   ,     
+    folder          = folder_name   ,
     fname           = filename
 
     )
