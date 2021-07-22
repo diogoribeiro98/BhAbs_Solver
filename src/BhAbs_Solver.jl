@@ -40,7 +40,7 @@ include("./data_read_utils/get_field_energy.jl")
 include("./data_read_utils/get_field_point.jl")
 include("./data_read_utils/get_field_slice.jl")
 include("./data_read_utils/get_fields.jl")
-include("./data_read_utils/get_t_max.jl")
+include("./data_read_utils/get_time_variables.jl")
 
 #Visualization aids
 #include("./visualization/sim_visualizer.jl")
@@ -53,6 +53,6 @@ include("./template_runs/binary_bh_runs.jl")
 
 
 export run_single_BH_simulation , run_binary_BH_simulation
-export get_t_max , get_field_energy , get_field_point, get_field_slice, get_fields
+export get_time_variables , get_field_energy , get_field_point, get_field_slice, get_fields
 
 end
