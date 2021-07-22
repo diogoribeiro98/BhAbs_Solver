@@ -19,7 +19,7 @@ function run_binary_BH_simulation(;
         Gaussian_pulse:: Array{Float64, 1} = [ 3.5 , 3.7 , 20.  , 0.1 , 2 ],
         )
 
-    if(tspan[1] - tspan[2] < 0)
+    if(tspan[2] - tspan[1] < 0)
        println("ERROR: t_final must be larger than t_initial")
         return
     end
@@ -29,16 +29,18 @@ function run_binary_BH_simulation(;
 
     #filename
     folder_name = string("/", Dates.today() , "/") 
-    filename = string("binary_bh_M_", Mbh, "_alpha_", alpha , "_Rorbit_", Rorbit , "_Rcavity_",Rcavity , "_N_" , Nnodes ,"_tmax_" , ttmax)
+    filename = string("binary_bh_M_", Mbh, "_alpha_", alpha , "_Rorbit_", Rorbit , "_Rcavity_",Rcavity , "_N_" , Nnodes ,"_ti_" , tspan[1] , "_tf_" , tspan[2] )
 
     #Setup masses
     p0 = Param(
 
     #Temporal variables
-    t_sim_init           = ttmax          , 
-    out_every_t    = out_every      ,  
-    deltat         = dt             , 
+    t_sim_init      = tspan[1]          ,
+    t_sim_final     = tspan[2]          , 
+    out_every_t     = out_every      ,  
+    deltat          = dt             , 
 
+    max_runtime     = max_run_time  ,
     #Spacial variables
     xmin           =    -Rcavity    ,  
     xmax           =    Rcavity     , 
