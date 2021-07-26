@@ -73,15 +73,17 @@ end
 
 function solve_wave_equation_2D(p::Param)
     
-    #Welcome screen
+    #
+    # Setup Routine
+    #
+
+    #Start time
+    init_time = time()
+    max_runtime = time_string_to_seconds(p.max_runtime)
+
+    #Setup routine setup check
     if( !setup_routine(p) ) 
-        #End simulation
-        println("Finished!")      
-        println(" ")
-        println("Thank you for choosing KG Solver!")
-        println("___________________________________________________________")  
-        print("Time Taken:  ")  
-        
+        print_final_message(  time() - init_time )
         return 
     end
 
@@ -176,9 +178,7 @@ function solve_wave_equation_2D(p::Param)
     println("Starting up simulation...")
     prog1 = Progress( Int(floor(p.t_sim_final-p.t_sim_init))*100 )
     
-    #Check time evolution
-    init_time = time()
-    max_runtime = time_string_to_seconds(p.max_runtime)
+   
     
     for (u,t) in tuples(integrator)
     

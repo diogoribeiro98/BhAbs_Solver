@@ -1,4 +1,4 @@
-function print_output_message(time_taken::Float64)
+function print_final_message(time_taken::Float64)
 
         println("Finished!")      
         println(" ")
