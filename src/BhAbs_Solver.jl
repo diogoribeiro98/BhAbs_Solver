@@ -30,8 +30,11 @@ include("./sim_utils/initial_conditions.jl")
 include("./sim_utils/setup_operators.jl")
 include("./sim_utils/setup_folders.jl")
 include("./sim_utils/setup_routine.jl")
+include("./sim_utils/save_param_to_file.jl")
 include("./sim_utils/print_param_info.jl")
 include("./sim_utils/time_to_seconds.jl")
+include("./sim_utils/exit_message.jl")
+
 #Solvers
 include("./solvers/KG_Solver.jl")
 
