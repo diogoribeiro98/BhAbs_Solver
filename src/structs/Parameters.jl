@@ -21,8 +21,9 @@
     #Initial Conditions
     field_start_config      ::Symbol    = :Gaussian # :from_file
     
-    input_file__name        ::String    = "default_filename"
-    input_file_time         ::Bool      = :true  
+    input_file__name          ::String    = "default_filename"
+    input_file_time           ::Bool      = :true  
+    input_file_params         ::Bool      = :true  
 
     #Initial Conditions
     A0              ::Float64       = 1.0
