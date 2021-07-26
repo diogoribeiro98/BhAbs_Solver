@@ -19,6 +19,12 @@
     ynodes          :: Integer      =  1024
     
     #Initial Conditions
+    field_start_config      ::Symbol    = :Gaussian # :from_file
+    
+    input_file              ::String    = "default_filename"
+    input_file_time         ::Bool      = :true  
+
+    #Initial Conditions
     A0              ::Float64       = 1.0
     σ               ::Float64       = 2.0
     r0              ::Float64       = 5.0
