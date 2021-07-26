@@ -23,8 +23,6 @@ function setup_routine(p::Param)
 
     #Print Parameters (if folder setup went ok)
     print_param_info(p)
-
-
     
     return true
 
