@@ -1,4 +1,4 @@
-function setup_routine(p::Param)
+function welcome_message()
 
     println("\n \n")        
     println("___________________________________________________________")        
@@ -11,13 +11,25 @@ function setup_routine(p::Param)
     println("___________________________________________________________")        
     println(" ")
     println(" Welcome to the Klein gordon field Solver")
-    println("___________________________________________________________")        
+    println("___________________________________________________________")     
+
+
+end
+
+function setup_routine(p::Param)
+
+      
 
     println(" ")
     println("Start up routine:")
 
-    #Folder setup (return false if file already exists)
+    #Folder setup 
     if( !set_up_folder(p) )
+        return false
+    end
+
+    #Consistency checks
+    if( !check_parameters_consistency(p) )
         return false
     end
 
