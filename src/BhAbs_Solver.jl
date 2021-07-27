@@ -59,7 +59,7 @@ include("./template_runs/binary_bh_runs.jl")
 include("./template_runs/resume_simulation.jl")
 
 
-export run_single_BH_simulation , run_binary_BH_simulation , resume_simulation
+export run_single_BH_simulation , run_binary_BH_simulation , resume_simulation_from_file
 export get_time_variables , get_field_energy , get_field_point, get_field_slice, get_fields
 
 end
