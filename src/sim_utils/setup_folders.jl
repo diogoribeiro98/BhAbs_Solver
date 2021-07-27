@@ -1,4 +1,4 @@
-function set_up_folder(p::Param)
+function setup_folder(p::Param)
 
     println("Checking folder structure...")
     setup = false
