@@ -15,27 +15,3 @@ function welcome_message()
 
 
 end
-
-function setup_routine(p::Param)
-
-      
-
-    println(" ")
-    println("Start up routine:")
-
-    #Folder setup 
-    if( !set_up_folder(p) )
-        return false
-    end
-
-    #Consistency checks
-    if( !check_parameters_consistency(p) )
-        return false
-    end
-
-    #Print Parameters (if folder setup went ok)
-    print_param_info(p)
-    
-    return true
-
-end
