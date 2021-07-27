@@ -1,7 +1,6 @@
 module BhAbs_Solver
 
 #Julia libs
-using Base: Float64, Slice
 using LinearAlgebra
 using LinearAlgebra.BLAS
 using DifferentialEquations
@@ -26,14 +25,16 @@ include("./operators/BC_operator.jl")
 include("./operators/potential_operator.jl")
 
 #Simulation helpers
-include("./sim_utils/initial_conditions.jl")
-include("./sim_utils/setup_operators.jl")
+include("./sim_utils/initial_conditions.jl")    # change to gaussian pulse
+include("./sim_utils/setup_operators.jl")       
 include("./sim_utils/setup_folders.jl")
-include("./sim_utils/setup_routine.jl")
+
 include("./sim_utils/save_param_to_file.jl")
 include("./sim_utils/print_param_info.jl")
+
 include("./sim_utils/time_to_seconds.jl")
 include("./sim_utils/exit_message.jl")
+include("./sim_utils/welcome_message.jl")
 
 #Solvers
 include("./solvers/KG_Solver.jl")
