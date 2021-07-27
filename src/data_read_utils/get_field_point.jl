@@ -28,7 +28,7 @@ function get_field_point(fname::String, x_read::Float64 , y_read::Float64)
     end
 
     #Max iteration time
-    _ , _ , max_sim_iter = get_t_max(fname)    
+    _ , _ , max_sim_iter = get_time_variables(fname)    
 
     #Storage vectors
     pos_vector = Float64[]
