@@ -77,16 +77,19 @@ function solve_wave_equation_2D(p::Param)
     # Setup Routine
     #
 
+    #Welcome message
+    welcome_message();
+
     #Start time
     init_time = time()
     max_runtime = time_string_to_seconds(p.max_runtime)
 
     #Setup routine setup check
-    if( !setup_routine(p) ) 
+    if( !setup_folder(p) ) 
         print_exit_message(  time() - init_time )
-        return 
+        return false
     end
-
+    
     #Storage file
     println("Creating HDF5 file...")
 
@@ -98,20 +101,37 @@ function solve_wave_equation_2D(p::Param)
 
     println("OK")
 
+     #Create operators structures
+     println("Setting up Operators...")
+     Operators = set_up_operator(p)
+     println("OK")
+
     #Time variables
-    tspan       = ( p.t_sim_init , p.t_sim_final )
+    tmin = p.t_sim_init
+    tmax = p.t_sim_final
+    itermax = undef
+
+    tspan       = ( tmin , tmax )
+
+    if( p.field_start_config == :from_file && p.input_file_time == :true)
+        _, tinit , itermax = get_time_variables( p.input_file__name )
+        tspan       = ( tinit , tmax )
+        println(tspan)
+    end
+
     iter        = 0
     iter_save   = 0
     every       = floor(Int , p.out_every_t/p.deltat + 1.0)
 
-    #Create operators structures
-    println("Setting up Operators...")
-    Operators = set_up_operator(p)
-    println("OK")
-    
     #Initial Conditions
     println("Setting up inicial configuration...")
     ψ , dψ = get_gaussian( p , Operators)
+
+    if( p.field_start_config == :from_file)
+        _,_,_, ψmat , dψmat = get_fields( p.input_file__name , itermax) 
+        ψ = reshape( ψmat , p.xnodes*p.ynodes)
+        dψ = reshape( dψmat , p.xnodes*p.ynodes)
+  end
     
     U = ArrayPartition( Operators.BC_Mat * ψ , Operators.BC_Mat *dψ )
     println("OK")
@@ -213,6 +233,7 @@ function solve_wave_equation_2D(p::Param)
     println("Thank you for choosing KG Solver!")
     println("___________________________________________________________")  
 
+    
     return true
 end
 
