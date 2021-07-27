@@ -4,7 +4,7 @@ using BhAbs_Solver
 run_binary_BH_simulation(
 
 	#Time variables
-	tspan   =   [0. , 40.]   ,
+	tspan   =   [0. , 102.]   ,
   	dt                =   0.05        ,
   	out_every         =   1.0         ,
   	max_run_time        =   "24:00:00"  ,
@@ -25,8 +25,8 @@ run_binary_BH_simulation(
 
 
 resume_simulation_from_file(
-  "./data/2021-07-27/binary_bh_M_1.0_alpha_10.0_Rorbit_6.0_Rcavity_40.0_N_128_ti_0.0_tf_40.0.h5",
-  "./2021-07-27/testfile2.h5",
+	"./data/2021-07-27/binary_bh_M_1.0_alpha_10.0_Rorbit_6.0_Rcavity_40.0_N_128_ti_0.0_tf_102.0.h5",
+  "./2021-07-27/testfile8.h5",
   t_end = 200.0
   )
 
