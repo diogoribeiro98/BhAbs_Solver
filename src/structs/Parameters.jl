@@ -2,7 +2,7 @@
 
     #Resume previously run sumulation?
     resume_simulation   ::Bool      = :false
-    input_file__name    ::String    
+    input_file_name     ::String    = ""
 
     #Temporal variables for simulation
     t_sim_init          :: Float64
