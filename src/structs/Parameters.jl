@@ -1,5 +1,10 @@
 @with_kw struct Param
 
+    #Resume previously run sumulation?
+    resume_simulation   ::Bool      = :false
+    input_file__name    ::String    = "default_filename"
+
+
     #Temporal variables for simulation
     t_sim_init          :: Float64
     t_sim_final         :: Float64    
@@ -18,13 +23,6 @@
     ymax            :: Float64      =  30.0
     ynodes          :: Integer      =  1024
     
-    #Initial Conditions
-    field_start_config      ::Symbol    = :Gaussian # :from_file
-    
-    input_file__name          ::String    = "default_filename"
-    input_file_time           ::Bool      = :true  
-    input_file_params         ::Bool      = :true  
-
     #Initial Conditions
     A0              ::Float64       = 1.0
     σ               ::Float64       = 2.0
