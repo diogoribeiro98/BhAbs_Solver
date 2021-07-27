@@ -24,10 +24,10 @@ run_binary_BH_simulation(
   
 
 
-resume_simulation(
+resume_simulation_from_file(
   "./data/2021-07-27/binary_bh_M_1.0_alpha_10.0_Rorbit_6.0_Rcavity_40.0_N_128_ti_0.0_tf_40.0.h5",
   "./2021-07-27/testfile2.h5",
-  200.0, ""
+  t_end = 200.0
   )
 
   
