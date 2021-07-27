@@ -56,9 +56,10 @@ include("./data_read_utils/get_space_variables.jl")
 #Template_runs
 include("./template_runs/single_bh_runs.jl")
 include("./template_runs/binary_bh_runs.jl")
+include("./template_runs/resume_simulation.jl")
 
 
-export run_single_BH_simulation , run_binary_BH_simulation
+export run_single_BH_simulation , run_binary_BH_simulation , resume_simulation
 export get_time_variables , get_field_energy , get_field_point, get_field_slice, get_fields
-export Param , solve_wave_equation_2D
+
 end
