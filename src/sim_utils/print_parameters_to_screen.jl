@@ -1,4 +1,4 @@
-function print_param_info(p::Param)
+function print_parameters_to_screen(p::Param)
 
     #Grid information
     ti          = p.t_sim_init

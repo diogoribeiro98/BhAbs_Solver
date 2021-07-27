@@ -71,21 +71,54 @@ function square_grid_KG!(df,f,param,t)
 
 end
 
-function solve_wave_equation_2D(p::Param)
+function solve_wave_equation_2D(p_in::Param)
     
     #
     # Setup Routine
     #
 
+    #Welcome message
+    welcome_message();
+
     #Start time
     init_time = time()
-    max_runtime = time_string_to_seconds(p.max_runtime)
+    max_runtime = time_string_to_seconds(p_in.max_runtime)
 
     #Setup routine setup check
-    if( !setup_routine(p) ) 
+    if( !setup_folder(p_in) ) 
         print_exit_message(  time() - init_time )
-        return 
+        return false
     end
+    
+    #Check if parameters are OK
+    println("Checking Parameters...")
+    p = p_in
+
+    if( p.resume_simulation == :true)
+        p = get_parameters_from_file(p.input_file_name)
+
+        if( p_in.t_sim_final <= p.t_sim_final )
+            println("ERROR: Simulation already at final time")
+            print_exit_message(  time() - init_time )
+            return false
+        end
+
+        p = Param(  p,
+
+                    resume_simulation = p_in.resume_simulation,
+                    input_file_name = p_in.input_file_name,
+
+                    t_sim_init  = p.t_sim_final,
+                    t_sim_final = p_in.t_sim_final,
+                    
+                    folder = p_in.folder,
+                    fname = p_in.fname
+            )
+    end
+    
+    print_parameters_to_screen(p)
+
+    println("OK")
 
     #Storage file
     println("Creating HDF5 file...")
@@ -94,25 +127,42 @@ function solve_wave_equation_2D(p::Param)
     fname   = fdata * p.folder *  "$(p.fname).h5"
     fid = h5open(fname, "w")
 
-    save_param_to_file( p , fid )
+    save_parameters_to_file( p , fid )
 
     println("OK")
-
-    #Time variables
-    tspan       = ( p.t_sim_init , p.t_sim_final )
-    iter        = 0
-    iter_save   = 0
-    every       = floor(Int , p.out_every_t/p.deltat + 1.0)
 
     #Create operators structures
     println("Setting up Operators...")
     Operators = set_up_operator(p)
     println("OK")
-    
+
+    #Time variables
+    tmin = p.t_sim_init
+    tmax = p.t_sim_final
+    tspan       = ( tmin , tmax )
+
+    iter        = 0
+    iter_save   = 0
+    every       = floor(Int , p.out_every_t/p.deltat + 1.0)
+
     #Initial Conditions
     println("Setting up inicial configuration...")
-    ψ , dψ = get_gaussian( p , Operators)
-    
+    ψ , dψ = get_gaussian_pulse( p , Operators)
+
+    #If resume simulation
+    if( p.resume_simulation == :true)
+
+        #Get max iteration
+        _ , _ , itermax = get_time_variables( p.input_file_name )
+
+        #Get field at previous simulation
+        _,_,_, ψmat , dψmat = get_fields( p.input_file_name , itermax) 
+
+        #Reshape to one column vector
+        ψ   = reshape( ψmat , p.xnodes*p.ynodes)
+        dψ  = reshape( dψmat , p.xnodes*p.ynodes)
+    end
+
     U = ArrayPartition( Operators.BC_Mat * ψ , Operators.BC_Mat *dψ )
     println("OK")
 
@@ -130,10 +180,8 @@ function solve_wave_equation_2D(p::Param)
     
     #Save first configuration of field
 
-    #data set names (first iteration is 0)
     dset_name = string("iteration_",iter_save)
     
-    #data set for both displacement and derivative
     data1 = integrator.u.x[1]  
     dset1, dtype1  = create_dataset(g1, dset_name , data1 )
     write_dataset(dset1, dtype1 , data1)
@@ -149,8 +197,6 @@ function solve_wave_equation_2D(p::Param)
     #Progress bar and time evolution
     println("Starting up simulation...")
     prog1 = Progress( Int(floor(p.t_sim_final-p.t_sim_init))*100 )
-    
-   
     
     for (u,t) in tuples(integrator)
     
@@ -195,23 +241,17 @@ function solve_wave_equation_2D(p::Param)
 
     end
 
-    #Print time taken
-    sim_time =  time_since(init_time) 
-    println("Time taken:" , time_seconds_to_string(sim_time) )
-    
-    #Add general information to file
+    #Add time information to file
     HDF5.attributes(fid)["max_iter"]    = iter_save
     HDF5.attributes(fid)["t_min"]       = p.t_sim_init
     HDF5.attributes(fid)["t_max"]       = integrator.t
-    
+    HDF5.attributes(fid)["out_every_t"] = p.out_every_t
+    HDF5.attributes(fid)["dt"]          = p.deltat
+
     close(fid)
     println("Saving Files...")
-    println("Finished!")
-
-    #End simulation
-    println(" ")
-    println("Thank you for choosing KG Solver!")
-    println("___________________________________________________________")  
+   
+    print_exit_message(  time() - init_time )
 
     return true
 end

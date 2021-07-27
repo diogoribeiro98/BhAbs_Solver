@@ -1,10 +1,14 @@
 @with_kw struct Param
 
+    #Resume previously run sumulation?
+    resume_simulation   ::Bool      = :false
+    input_file_name     ::String    = ""
+
     #Temporal variables for simulation
-    t_sim_init          :: Float64
-    t_sim_final         :: Float64    
-    out_every_t         :: Float64  
-    deltat              :: Float64
+    t_sim_init          :: Float64   = 0.0
+    t_sim_final         :: Float64   = 0.0   
+    out_every_t         :: Float64   = 1.0
+    deltat              :: Float64   = 0.05
 
     #Max possible sim
     max_runtime         ::String    = "00:30:00"

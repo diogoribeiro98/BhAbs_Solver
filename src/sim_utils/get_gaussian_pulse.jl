@@ -1,5 +1,5 @@
 #Create Initially traveling gaussian wavepacket
-function get_gaussian(p::Param , Opp::Opps)
+function get_gaussian_pulse(p::Param , Opp::Opps)
 
     #Get Variables
     Nx  = p.xnodes
