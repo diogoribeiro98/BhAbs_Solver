@@ -5,15 +5,15 @@ function get_parameters_from_file(fname::String)
 
     #Dissipation on?
     diss = read_attribute(fid, "Dissipation")
-
-    if(diss)
+    
+    if( diss == "true")
  
         p0 = Param(
 
             #Temporal variables
             t_sim_init      = read_attribute(fid, "t_min")          ,
             t_sim_final     = read_attribute(fid, "t_max")          ,
-            out_every_t     = read_attribute(fid, "out_every")      ,
+            out_every_t     = read_attribute(fid, "out_every_t")      ,
             deltat          = read_attribute(fid, "dt")             ,
         
             max_runtime     = "24:00:00"  ,
@@ -22,8 +22,7 @@ function get_parameters_from_file(fname::String)
             xmin           =    read_attribute(fid, "xmin")     ,
             xmax           =    read_attribute(fid, "xmax")     ,
             xnodes         =    read_attribute(fid, "xnodes")   ,
-        
-            #Spacial variables
+
             ymin           =    read_attribute(fid, "ymin")     ,
             ymax           =    read_attribute(fid, "ymax")     ,
             ynodes         =    read_attribute(fid, "ynodes")   ,
@@ -39,7 +38,7 @@ function get_parameters_from_file(fname::String)
             μ               =    read_attribute(fid , "field_mass")         ,
         
             #Dissipation terms
-            dissipation     =  Symbol(diss)        ,
+            dissipation     =  :true      ,
         
             R_orbit         =  read_attribute(fid , "Rorbit")       ,
             R1              =  read_attribute(fid , "R1")         ,
@@ -47,9 +46,9 @@ function get_parameters_from_file(fname::String)
         
             Ω               =  read_attribute(fid , "Omega")        ,
             alpha1          =  read_attribute(fid , "alpha1")         ,
-            alpha2          =  read_attribute(fid , "alpha2")         ,
-        
-            #Periodic BC?
+            alpha2          =  read_attribute(fid , "alpha2")         , #Periodic BC?
+           
+            #Boundaries
             Boundaries      = Symbol(read_attribute(fid, "Boundaries"))       , # :square :periodic
         
             )
@@ -62,11 +61,11 @@ function get_parameters_from_file(fname::String)
 
         p0 = Param(
 
-            #Temporal variables
-            t_sim_init      = t_min          ,
-            t_sim_final     = t_max          ,
-            out_every_t     = out_every      ,
-            deltat          = dt             ,
+             #Temporal variables
+             t_sim_init      = read_attribute(fid, "t_min")          ,
+             t_sim_final     = read_attribute(fid, "t_max")          ,
+             out_every_t     = read_attribute(fid, "out_every_t")      ,
+             deltat          = read_attribute(fid, "dt")             ,
         
             max_runtime     = "24:00:00"  ,
             
@@ -91,7 +90,7 @@ function get_parameters_from_file(fname::String)
             μ               =    read_attribute(fid , "field_mass")         ,
         
             #Dissipation terms
-            dissipation     =  Symbol(diss)        ,
+            dissipation     =  :false        ,
     
             #Periodic BC?
             Boundaries      = Symbol(read_attribute(fid, "Boundaries"))       , # :square :periodic
