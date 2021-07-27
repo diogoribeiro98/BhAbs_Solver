@@ -109,7 +109,7 @@ function solve_wave_equation_2D(p_in::Param)
                     input_file_name = p_in.input_file_name,
 
                     t_sim_init  = p.t_sim_final,
-                    t_sim_final = p_in.t_sim_init,
+                    t_sim_final = p_in.t_sim_final,
                     
                     folder = p_in.folder,
                     fname = p_in.fname
