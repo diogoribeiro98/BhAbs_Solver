@@ -11,7 +11,7 @@
     deltat              :: Float64   = 0.05
 
     #Max possible sim
-    max_runtime         ::String    = "00:30:00"
+    max_runtime         ::String    = "70:00:00"
     
     #Spacial variables
     xmin            :: Float64      = -30.0
