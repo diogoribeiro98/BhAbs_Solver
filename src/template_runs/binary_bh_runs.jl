@@ -28,7 +28,7 @@ function run_binary_BH_simulation(;
     Ωorbit = sqrt(2*Mbh/Rorbit^3)
 
     #filename
-    folder_name = string("/", Dates.today() , "/")
+    folder_name = string("")  # string("/", Dates.today() , "/")
     filename = string("binary_bh_M_", Mbh, "_alpha_", alpha , "_Rorbit_", Rorbit , "_Rcavity_",Rcavity , "_N_" , Nnodes ,"_ti_" , tspan[1] , "_tf_" , tspan[2] )
 
     #Setup masses
