@@ -18,7 +18,7 @@ function run_binary_BH_simulation(;
         #Initial configuration
         Gaussian_pulse:: Array{Float64, 1} = [ 3.5 , 3.7 , 20.  , 0.1 , 2 ],
                 
-        in_folder_name              = "binary_data" 
+        output_folder              = "" 
         )
 
     if(tspan[2] - tspan[1] < 0)
@@ -30,7 +30,12 @@ function run_binary_BH_simulation(;
     Ωorbit = sqrt(2*Mbh/Rorbit^3)
 
     #filename
-    folder_name = in_folder_name
+    folder_name = output_folder
+
+    if(output_folder == "")
+        folder_name = string("/", Dates.today() , "/")    
+    end
+
     filename = string("binary_bh_M_", Mbh, "_alpha_", alpha , "_Rorbit_", Rorbit , "_Rcavity_",Rcavity , "_N_" , Nnodes ,"_ti_" , tspan[1] , "_tf_" , tspan[2] )
 
     #Setup masses
