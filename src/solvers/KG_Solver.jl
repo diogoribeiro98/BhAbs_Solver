@@ -144,6 +144,7 @@ function solve_wave_equation_2D(p_in::Param)
     iter        = 0
     iter_save   = 0
     every       = floor(Int , p.out_every_t/p.deltat + 1.0)
+    save_time   = 0
 
     #Initial Conditions
     println("Setting up inicial configuration...")
@@ -213,6 +214,7 @@ function solve_wave_equation_2D(p_in::Param)
         if iter % every == 0
             
             iter_save += 1
+            save_time = integrator.t
             
             #data set names
             dset_name = string("iteration_",iter_save)
@@ -244,7 +246,7 @@ function solve_wave_equation_2D(p_in::Param)
     #Add time information to file
     HDF5.attributes(fid)["max_iter"]    = iter_save
     HDF5.attributes(fid)["t_min"]       = p.t_sim_init
-    HDF5.attributes(fid)["t_max"]       = integrator.t
+    HDF5.attributes(fid)["t_max"]       = save_time
     HDF5.attributes(fid)["out_every_t"] = p.out_every_t
     HDF5.attributes(fid)["dt"]          = p.deltat
 
