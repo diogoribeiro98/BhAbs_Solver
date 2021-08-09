@@ -88,13 +88,13 @@ function get_field_energy( fname::String, every::Int , tlimit::Float64)
         t, _ , _ , ψ , dψ = get_fields(fname,i)
         
         #Gradient term (possibly wrong)
-         vx = Dx * reshape(ψ, Nx*Ny)
-         vy = Dy * reshape(ψ, Nx*Ny)
+         vx = reshape( Dx * reshape(ψ, Nx*Ny) , (Nx,Ny))
+         vy = reshape( Dy * reshape(ψ, Nx*Ny) , (Nx,Ny))
 
         #Potential term
         # v2 = Vpot * reshape(ψ, Nx*Ny)
         println("Calculating Matrix!")
-        Energy_matrix = reshape(vx.^2 .+ vy.^2 .+ dψ.^2, (Nx, Ny) )
+        Energy_matrix = vx.^2 .+ vy.^2 .+ dψ.^2
         println("Done!")
     
         E = simpson_integration_2D(x , y ,Energy_matrix)
