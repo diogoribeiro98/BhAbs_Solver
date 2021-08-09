@@ -79,8 +79,7 @@ function get_field_energy( fname::String, every::Int , tlimit::Float64)
 
     t = 0
     E = 0
-
-   println("Entering Loop!")
+    
     #Loop to get energy
     for i in 0:every:max_plot_iter
         
@@ -93,9 +92,8 @@ function get_field_energy( fname::String, every::Int , tlimit::Float64)
 
         #Potential term
         # v2 = Vpot * reshape(ψ, Nx*Ny)
-        println("Calculating Matrix!")
+
         Energy_matrix = vx.^2 .+ vy.^2 .+ dψ.^2
-        println("Done!")
     
         E = simpson_integration_2D(x , y ,Energy_matrix)
 
