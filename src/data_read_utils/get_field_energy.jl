@@ -1,3 +1,32 @@
+function simpson_integration(x_vec,y_vec)
+    
+    sum = 0.
+    dx = x_vec[2]-x_vec[1]
+
+    #First point
+    sum += 3*y_vec[1]/8 + 3*y_vec[end]/8
+    sum += 7*y_vec[2]/6 + 7*y_vec[end-1]/6
+    sum += 23*y_vec[3]/24 + 23*y_vec[end-2]/24
+
+    for idx in 4:(length(x_vec)-3)
+        sum += y_vec[idx]
+    end
+    return sum*dx
+end
+
+function simpson_integration_2D(x_vec,y_vec,z_vec)
+    
+    sum_vector = zeros(length(y_vec))
+
+    for idx in 1:length(sum_vector)
+        sum_vector[idx] = simpson_integration(x_vec,z_vec[:,idx])
+    end
+
+    sum = simpson_integration(y_vec , sum_vector)
+     
+    return sum
+end
+
 
 function get_field_energy( fname::String, every::Int , tlimit::Float64)
 
@@ -20,13 +49,9 @@ function get_field_energy( fname::String, every::Int , tlimit::Float64)
     y       = [ymin + (i-1)*dy for i in 1:Ny]
 
     #Create Differential Operators 
-    Dx  =   Diff_Operator_2D(1 ,1, [dx,dy] , [Nx,Ny]) 
-    Dxx =   Diff_Operator_2D(2 ,1, [dx,dy] , [Nx,Ny])
-    
+    Dx  =   Diff_Operator_2D(1 ,1, [dx,dy] , [Nx,Ny])     
     Dy  =   Diff_Operator_2D(1 ,2, [dx,dy] , [Nx,Ny]) 
-    Dyy =   Diff_Operator_2D(2 ,2, [dx,dy] , [Nx,Ny]) 
     
-
     #Get max time iteration 
     _ , tmax , max_sim_iter  = get_time_variables(fname)    
     max_plot_iter = max_sim_iter
@@ -42,6 +67,11 @@ function get_field_energy( fname::String, every::Int , tlimit::Float64)
 
     # Total volume of space
     Volume = ((ymax-ymin)*(xmax-xmin))
+    dV = dx*dy
+    I_factor = dV / Volume
+
+    #Create storage matrix
+    Energy_matrix = zeros( Nx , Ny )
 
     #Storage vectors
     E_vector = Float64[]
@@ -55,26 +85,22 @@ function get_field_energy( fname::String, every::Int , tlimit::Float64)
         
         #Time and fields
         t, _ , _ , ψ , dψ = get_fields(fname,i)
-
-        #Volume element
-        dV = dx*dy
-        E = 0
         
         #Gradient term (possibly wrong)
          vx = Dx * reshape(ψ, Nx*Ny)
          vy = Dy * reshape(ψ, Nx*Ny)
 
         #Potential term
-       # v2 = Vpot * reshape(ψ, Nx*Ny)
+        # v2 = Vpot * reshape(ψ, Nx*Ny)
      
-        #Add all terms
-        for i in 1:(Nx*Ny) #length(ψ)
-            E+= vx[i]^2 + vy[i]^2 + dψ[i]^2 # + (p.μ)^2*ψ[i]^2  # + v2[i]^2
-        end
-     
+        Energy_matrix = vx.^2 + vy.^2 + dψ.^2
+
+        E = simpson_integration_2D(x , y ,Energy_matrix)
+
         #Add to storage vectors  and normalize
         push!(t_vector, t)
-        push!(E_vector, dV * E / Volume )
+        push!(E_vector, I_factor*E  )
+
     end
 
     return t_vector , E_vector
