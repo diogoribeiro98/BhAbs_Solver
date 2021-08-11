@@ -173,7 +173,7 @@ function solve_wave_equation_2D(p_in::Param)
     #Problem ODE and integrator
     prob = ODEProblem(  square_grid_KG! , U , tspan , my_params )
    
-    integrator = init( prob , RK4() , save_everystep=false , dt=p.deltat , adaptive=true )
+    integrator = init( prob , RK4() , save_everystep=false , dt=p.deltat , adaptive=false )
 
     #Create a group for the functions
     g1 =  create_group(fid , "ψ");
