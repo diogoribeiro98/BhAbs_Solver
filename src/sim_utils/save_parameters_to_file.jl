@@ -41,7 +41,7 @@ function save_parameters_to_file( p::Param , fid::HDF5.File  )
         HDF5.attributes(fid)["Boundaries"]      = "periodic"
     else
         HDF5.attributes(fid)["Boundaries"]      = "radial"
-        HDF5.attributes(fid)["R_boundary"]      = round(0.95*min(p.xmax,p.ymax))
+        HDF5.attributes(fid)["R_boundary"]      = 0.95*min(p.xmax,p.ymax)
 
     end
 
