@@ -1,4 +1,4 @@
-function run_single_BH_simulation( 
+function run_single_BH_simulation(;
         
         #Time variables
         tspan::Array{Float64 , 1}   =   [0. , 0.]   ,
