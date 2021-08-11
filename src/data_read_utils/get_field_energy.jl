@@ -1,3 +1,5 @@
+#=
+
 function simpson_integration(x_vec,y_vec)
     
     sum = 0.
@@ -106,7 +108,7 @@ function get_field_energy( fname::String, every::Int , tlimit::Float64)
     return t_vector , E_vector
 
 end
-
+=#
 function simple_integration(x_vec,y_vec)
     
     sum = 0.
@@ -133,7 +135,7 @@ function simple_integration_2D(x_vec,y_vec,z_vec)
 end
 
 
-function get_field_energy_v2( fname::String, every::Int , tlimit::Float64)
+function get_field_energy( fname::String, every::Int , tlimit::Float64)
 
     #Get Variables  
     fid         = h5open( fname , "r")
