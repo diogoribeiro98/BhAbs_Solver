@@ -1,65 +1,94 @@
 function run_single_BH_simulation( 
         
-        ttmax::Float64      ,
-        Rcavity::Float64    ,
-        Nnodes::Int64       , 
-        Mbh::Float64        ,
-        Omega::Float64      ,
-        alpha::Float64      , 
-        Gaussian_pulse:: Array{Float64, 1} )
+        #Time variables
+        tspan::Array{Float64 , 1}   =   [0. , 0.]   ,
+        dt::Float64                 =   0.05        ,
+        out_every::Float64          =   1.0         ,
+        max_run_time::String        =   "24:00:00"  ,
 
+        #Spatial variables
+        Nnodes:: Int64              =   128     ,
+        Rcavity::Float64            =   40.     ,
 
+        #Black hole parameters
+        Mbh::Float64                =   1.0     ,
+        Omega::Float64              =   0.5     ,
+        alpha::Float64              =   10.0    ,
+                
+        #Initial configuration
+        Gaussian_pulse:: Array{Float64, 1} = [ 3.5 , 3.7 , 20.  , 0.1 , 2 ],
+                
+        output_folder              = "" 
+
+        )
+
+    if(tspan[2] - tspan[1] < 0)
+       println("ERROR: t_final must be larger than t_initial")
+        return
+    end
+       
     #filename
-    folder_name = string("/", Dates.today() , "/") 
-    filename = string("single_bh_M_", Mbh, "_alpha_", alpha , "_Omega_",Omega ,  "_Rcavity_",Rcavity , "_N_" , Nnodes ,"_tmax_" , ttmax)
+    folder_name = output_folder
+    
+    if(output_folder == "")
+        folder_name = string("/", Dates.today() , "/")    
+    end   
+        
+    filename = string("single_bh_M_", Mbh, "_alpha_", alpha , "_Omega_", Omega , "_Rcavity_", Rcavity , "_N_" , Nnodes ,"_ti_" , tspan[1] , "_tf_" , tspan[2] )
 
     #Setup masses
     p0 = Param(
 
+     #Setup masses
+    p0 = Param(
+
     #Temporal variables
-    tmax           = ttmax          , 
-    out_every_t    = 0.1            ,  
-    deltat         = 0.05           , 
+    t_sim_init      = tspan[1]          ,
+    t_sim_final     = tspan[2]          ,
+    out_every_t     = out_every      ,
+    deltat          = dt             ,
+
+    max_runtime     = max_run_time  ,
+    #Spacial variables
+    xmin           =    -Rcavity    ,
+    xmax           =    Rcavity     ,
+    xnodes         =    Nnodes      ,
 
     #Spacial variables
-    xmin           =    -Rcavity    ,  
-    xmax           =    Rcavity     , 
-    xnodes         =    Nnodes      ,    
+    ymin           =    -Rcavity    ,
+    ymax           =    Rcavity     ,
+    ynodes         =    Nnodes      ,
 
-    #Spacial variables
-    ymin           =    -Rcavity    ,  
-    ymax           =    Rcavity     , 
-    ynodes         =    Nnodes      , 
+    #Initial Conditions
+    A0              =   Gaussian_pulse[1] , #3.5         ,
+    σ               =   Gaussian_pulse[2] , #4.5         ,
+    r0              =   Gaussian_pulse[3] , #40.0        ,
+    ω               =   Gaussian_pulse[4] , #0.5         ,
+    m               =   Gaussian_pulse[5] , #2           ,
 
-   #Initial Conditions
-   A0              =   Gaussian_pulse[1] , #3.5         , 
-   σ               =   Gaussian_pulse[2] , #4.5         , 
-   r0              =   Gaussian_pulse[3] , #40.0        ,
-   ω               =   Gaussian_pulse[4] , #0.5         , 
-   m               =   Gaussian_pulse[5] , #2           , 
     #Klein Gordon Mass
     μ               =   0.0         ,
 
     #Dissipation terms
-    dissipation     =  :true        ,   
+    dissipation     =  :true        ,
 
-    R_orbit         = 0.0           ,
+    R_orbit         = 0.0        ,
     R1              = 2*Mbh         ,
-    R2              = 0.0           ,
+    R2              = 0.0         ,
 
-    Ω               = Omega         ,
+    Ω               = Omega        ,
     alpha1          = alpha         ,
-    alpha2          = 0.0           ,    
+    alpha2          = 0.0         ,
 
     #Periodic BC?
-    Boundaries      = :radial       , # :square :periodic 
+    Boundaries      = :radial       , # :square :periodic
 
     #Data variables
-    folder          = folder_name   , 
+    folder          = folder_name   ,
     fname           = filename
-
-    )
-
+        
+     )                        
+  
     solve_wave_equation_2D(p0)
 
     return 1
