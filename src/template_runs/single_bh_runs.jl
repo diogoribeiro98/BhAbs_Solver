@@ -36,10 +36,7 @@ function run_single_BH_simulation(
         
     filename = string("single_bh_M_", Mbh, "_alpha_", alpha , "_Omega_", Omega , "_Rcavity_", Rcavity , "_N_" , Nnodes ,"_ti_" , tspan[1] , "_tf_" , tspan[2] )
 
-    #Setup masses
-    p0 = Param(
-
-     #Setup masses
+    #Setup simulation
     p0 = Param(
 
     #Temporal variables
