@@ -78,7 +78,7 @@ function solve_wave_equation_2D(p_in::Param)
     #
 
     #Welcome message
-    welcome_message();
+    #welcome_message();
 
     #Start time
     init_time = time()
@@ -116,12 +116,12 @@ function solve_wave_equation_2D(p_in::Param)
             )
     end
     
-    print_parameters_to_screen(p)
+    #print_parameters_to_screen(p)
 
-    println("OK")
+    #println("OK")
 
     #Storage file
-    println("Creating HDF5 file...")
+    #println("Creating HDF5 file...")
 
     fdata   = "./data"
     fname   = fdata * p.folder *  "$(p.fname).h5"
@@ -129,12 +129,12 @@ function solve_wave_equation_2D(p_in::Param)
 
     save_parameters_to_file( p , fid )
 
-    println("OK")
+    #println("OK")
 
     #Create operators structures
-    println("Setting up Operators...")
+    #println("Setting up Operators...")
     Operators = set_up_operator(p)
-    println("OK")
+    #println("OK")
 
     #Time variables
     tmin = p.t_sim_init
@@ -147,7 +147,7 @@ function solve_wave_equation_2D(p_in::Param)
     save_time   = 0
 
     #Initial Conditions
-    println("Setting up inicial configuration...")
+    #println("Setting up inicial configuration...")
     ψ , dψ = get_gaussian_pulse( p , Operators)
 
     #If resume simulation
@@ -165,7 +165,7 @@ function solve_wave_equation_2D(p_in::Param)
     end
 
     U = ArrayPartition( Operators.BC_Mat * ψ , Operators.BC_Mat *dψ )
-    println("OK")
+    #println("OK")
 
     #Parameters
     my_params = ( Operators , p)
@@ -196,8 +196,8 @@ function solve_wave_equation_2D(p_in::Param)
     HDF5.attributes(dset2)["time"] =  integrator.t
 
     #Progress bar and time evolution
-    println("Starting up simulation...")
-    prog1 = Progress( Int(floor(p.t_sim_final-p.t_sim_init))*100 )
+    #println("Starting up simulation...")
+    #prog1 = Progress( Int(floor(p.t_sim_final-p.t_sim_init))*100 )
     
     for (u,t) in tuples(integrator)
     
@@ -208,7 +208,7 @@ function solve_wave_equation_2D(p_in::Param)
         DifferentialEquations.step!(integrator)
         
         #Update bar
-        ProgressMeter.update!(prog1, Int(floor(integrator.t*100)))
+        #ProgressMeter.update!(prog1, Int(floor(integrator.t*100)))
 
         #If save iteration
         if iter % every == 0
@@ -236,7 +236,7 @@ function solve_wave_equation_2D(p_in::Param)
   
         #Check if time has exceeded
         if( time_since(init_time) > max_runtime )
-            println("\nMaximum allowed runtime reached , Ending Simulation!")
+            #println("\nMaximum allowed runtime reached , Ending Simulation!")
             break
         end
 
@@ -251,9 +251,9 @@ function solve_wave_equation_2D(p_in::Param)
     HDF5.attributes(fid)["dt"]          = p.deltat
 
     close(fid)
-    println("Saving Files...")
+    #println("Saving Files...")
    
-    print_exit_message(  time() - init_time )
+    #print_exit_message(  time() - init_time )
 
     return true
 end
