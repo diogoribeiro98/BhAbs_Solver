@@ -236,7 +236,7 @@ function solve_wave_equation_2D(p_in::Param)
   
         #Check if time has exceeded
         if( time_since(init_time) > max_runtime )
-            #println("\nMaximum allowed runtime reached , Ending Simulation!")
+            println("\nMaximum allowed runtime reached , Ending Simulation!")
             break
         end
 
