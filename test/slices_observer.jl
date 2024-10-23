@@ -3,11 +3,12 @@ using BhAbs_Solver
 using GLMakie
 using HDF5
 using Colors
+using GeometryBasics
+
+GLMakie.activate!()
 
 #Slice observer from filename
 function slices_observer(fname::String)
-
-    #set_my_glmakie_theme()
     
     #Max iteration
     tmin ,  tmax  , max_iter = get_time_variables(fname)
@@ -81,7 +82,6 @@ function slices_observer(fname::String)
     
     #Plot absorbing regions if dissipation is on
     diss =  read_attribute(fid, "Dissipation")  
-    println(Symbol(diss))
     alpha = 1.0f0 
     Rorbit = 0.0
     Ω = 0.0
@@ -96,10 +96,6 @@ function slices_observer(fname::String)
         R2          = read_attribute(fid, "R2")
     end
 
-println(Rorbit)
-println(Ω)
-println("aa")
-
     Rcavity  = read_attribute(fid, "R_boundary")
  
     #Circles
@@ -111,27 +107,22 @@ println("aa")
         Circle( Point2f0( -Rorbit * cos( Ω * get_fields( fname , v[] )[1] ) ,  -Rorbit * sin( Ω * get_fields( fname , v[] )[1] )) , R2 ) 
     end
     
-println("aa")
     #Plot Black Holes (aka circles)
     poly!( ax_heat , c1 , color = RGBA{Float32}(0.0f0, 0.0f0 , 0.0f0 , alpha)   )
     poly!( ax_heat , c2 , color = RGBA{Float32}(0.0f0, 0.0f0 , 0.0f0 , alpha)   )
 
     
-println("bb")
    limits!(ax_top , xmin  , xmax ,   -5   ,   5   )    #Do heatmap
    limits!(ax_rgt ,   -5    ,    5   , ymin , ymax)    #Do heatmap
 
     poly!( ax_heat , Circle( Point2f0(0. ,  0.) , Rcavity ) , color = RGBA{Float32}(0.0f0, 0.0f0 , 0.0f0 , 0.0f0) , strokecolor = :black,  strokewidth =  1.0  )
 
-    println("cc")
     #Plot energy
     #lines!(ax_ene , a , b/b[1])
-    println("dd")
 
     #Time indicator
     #limits!(ax_ene , 0  , tmax ,   1E-5   ,   1E2   )    #Do heatmap
     #vlines!(ax_ene , t )
-    println("ff")
 
     ax_ene.xlabel = "Time"
     ax_ene.ylabel = "Energy Density [ ϵ(t) / ϵ(0) ]"
