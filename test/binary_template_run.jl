@@ -1,6 +1,5 @@
 using BhAbs_Solver
 
-
 run_binary_BH_simulation(
 
 	#Time variables
@@ -20,13 +19,16 @@ run_binary_BH_simulation(
 
   	#Initial configuration
   	Gaussian_pulse = [ 3.5 , 3.7 , 20.  , 0.1 , 2 ],
+
+	#Output folder
+	output_folder              = "/example_output_data/" 
   	)
   
 
 
 resume_simulation_from_file(
-	"./data/2021-07-27/binary_bh_M_1.0_alpha_10.0_Rorbit_6.0_Rcavity_40.0_N_128_ti_0.0_tf_102.0.h5",
-  "./2021-07-27/testfile8.h5",
+	"./data/example_output_data/binary_bh_M_1.0_alpha_10.0_Rorbit_6.0_Rcavity_40.0_N_128_ti_0.0_tf_102.0.h5",
+  "/example_output_data/extended_simulation",
   t_end = 200.0
   )
 
